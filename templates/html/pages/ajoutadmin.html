@@ -1,0 +1,46 @@
+{% extends "html/base/backend.html" %}
+
+{% block content %}
+    <div class="conteneur">
+        <div class="form-container shadow-lg p-4 rounded">
+            <h2 class="text-center mb-4 text-primary">Nouveau compte</h2>
+
+            <div class="error">
+            {% if erreur %}
+                <span> {{ erreur }} </span>
+            {% endif %}
+            </div>
+
+            <form method="POST" action="{{ url_for('ajout') }}">
+                <div class="mb-3">
+                    <label for="nom" class="form-label">Nom<span class="required">*</span></label>
+                    <input type="text" class="form-control" id="nom" name="nom" placeholder="Entrez un nom" required
+                           value="{{ nom }}">
+                </div>
+                <div class="mb-3">
+                    <label for="prenom" class="form-label">Prénom<span class="required">*</span></label>
+                    <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Entrez un prénom"
+                           required value="{{ prenom }}">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email<span class="required">*</span></label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Entrez un email"
+                           required value="{{ email }}">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mot de passe<span class="required">*</span></label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           placeholder="Créez un mot de passe" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm" class="form-label">Confirmez le mot de passe<span
+                            class="required">*</span></label>
+                    <input type="password" class="form-control" id="confirm" name="confirm"
+                           placeholder="Confirmez le mot de passe" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">AJOUT</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

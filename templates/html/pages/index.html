@@ -1,0 +1,21 @@
+{% extends "html/base/corps.html" %}
+
+{% block content %}
+
+    <div class="container">
+    <br>
+        <img src="{{ url_for ('static', filename ='Images/6.jpg') }}" class="rounded mx-auto d-block" alt="...">
+
+    </div>
+
+    <h6>
+        ANANDA MARGA est une organisation socio-spirituelle qui travaille pour la construction d'une société saine et
+        humaine.<br>
+        Fondée en Inde en 1955 par Shrii Anandamurti, ANANDA MARGA a maintenant des branches dans plus de 100 pays.<br>
+        <a href="{{ url_for('ananda') }}">Plus d'informations</a>
+    </h6>
+
+{% endblock %}
+
+
+

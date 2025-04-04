@@ -1,0 +1,69 @@
+h1{
+    padding-top: 30px;
+    font-size: 25px;
+    text-align: center;
+    color: #ffab0f;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.navbar{
+    width: 100%;
+    background-color: #ffab0f;
+}
+
+.bi{
+    align-items: center;
+    gap: 30px;
+    color: #fff;
+}
+
+.navbar a
+{
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    color:#fff;
+    
+} 
+
+.navbar ul li:hover a{
+    padding: 5px 10px 5px 10px;
+    color: aliceblue;
+
+}
+
+.nav-item:hover{
+    border: 2px solid #f1dc4f;
+    background-color: RGBa(228, 77, 38, 0.15);
+}
+
+.dropdown-menu a{
+    border: 0;
+    background-color: transparent;
+    border-bottom: 1px solid #f1dc4f;
+    color:#fff;
+}
+
+.dropdown-menu a:hover {
+     padding: 0 0 0 0;
+    border: 1px solid #f1dc4f;
+    background-color: #ffab0f;
+    color:#fff;
+}
+
+.footer
+{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    color:#FFF;
+    font-weight: bold;
+    align-items: center;
+    width: 100%;
+    border: 3px double darkorange;
+    background-color:darkorange;
+    height: 15%;
+    bottom: 0;
+    position: relative;
+}

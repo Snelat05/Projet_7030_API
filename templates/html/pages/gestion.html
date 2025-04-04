@@ -1,0 +1,44 @@
+{% extends "html/base/backend.html" %}
+
+{% block content %}
+    <div class="conteneur">
+
+    <h1>LISTE DES ADMINISTRATEURS</h1>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">NOM</th>
+            <th scope="col">PRENOM</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">STATUT</th>
+            <th scope="col">ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% for admin in admins %}
+        <tr>
+            <td>{{ admin[1] }}</td>
+            <td>{{ admin[2] }}</td>
+            <td>{{ admin[3] }}</td>
+            {% if not admin[4] %}
+                <td>
+                    <div class="btn2">INACTIF</div>
+                </td>
+            {% else %}
+            <td>  <div class="btn1">ACTIF</div></td>
+             {% endif %}
+            <td>
+                <a class="btn btn-primary btn-sm" href="{{ url_for('update', id = admin[0]) }}">MODIFIER</a>
+                <a class="btn btn-danger btn-sm" href="{{ url_for('suspend', statut = admin[4], email = admin[3]) }}">SUSPENDRE</a>
+               <a class="btn btn-danger btn-sm" href="{{ url_for('delete', email=admin[3]) }}">SUPPRIMER</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+    </div>
+
+
+{% endblock %}

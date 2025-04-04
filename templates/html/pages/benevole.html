@@ -1,0 +1,36 @@
+{% extends "html/base/backend.html" %}
+
+{% block content %}
+    <div class="conteneur">
+
+    <h1>LISTE DES BÉNÉVOLES</h1>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">NOM</th>
+            <th scope="col">PRENOM</th>
+            <th scope="col">SEXE</th>
+            <th scope="col">EMAIL</th>
+            <th scope="col">ADRESSE</th>
+            <th scope="col">MOTIVATION</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for benevol in benevols %}
+        <tr>
+            <td>{{ benevol[0] }}</td>
+            <td>{{ benevol[1] }}</td>
+            <td>{{ benevol[2] }}</td>
+            <td>{{ benevol[3] }}</td>
+            <td>{{ benevol[4] }}</td>
+            <td>{{ benevol[5] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Reset password </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navHor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="conteneur">
+    <div class="form-container shadow-lg p-4 rounded">
+        <h2 class="text-center mb-4 text-primary">Réinitialisation password</h2>
+
+        <div class="error">
+            {% if erreur %}
+                <span> {{ erreur }} </span>
+            {% endif %}
+        </div>
+
+        <div class="error">
+            {% if erreurs %}
+                <span> {{ erreurs }} </span>
+            {% endif %}
+        </div>
+
+        <form method="POST" action="{{ url_for('reset_final', token=token) }}">
+
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Nouveau mot de passe</label>
+                <input type="password" class="form-control" id="password" name="password"
+                       placeholder="Nouveau mot de passe" required value="{{ password }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirmez votre mot de passe</label>
+                <input type="password" class="form-control" id="confirm_password" name="npassword"
+                       placeholder="Confirmez votre mot de passe" required value="{{ npassword }}">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">MODIFIEZ</button>
+            <a href="{{ url_for ('index') }}">&#x21B5; Retour sur le site </a>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

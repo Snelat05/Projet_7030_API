@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row">
+        <img src="{{ url_for('static', filename='Images/ananda.png') }}" class="col-md-2 col-lg-2 col-xs-2 col-sm-2"
+             alt="...">
+         <h1 class=" col-md-8 col-lg-8 col-xs-8 col-sm-8">
+{#           ANANDA MARGA<br>#}
+{#            10, Impasse Dumond, Rue Gargnier, Bourdon, HAITI<br>#}
+{#            Rue Magua, Delmas 31<br>#}
+{#            Téléphone : +(509) 3167-7223<br>#}
+{#            E-mail: anandamarga@gmail.org<br>#}
+{#            BABA NAM KEVALAM#}
+        </h1>
+        <img src="{{ url_for('static', filename='Images/5.png') }}" class="col-md-2 col-lg-2 col-xs-2 col-sm-2"
+             alt="...">
+
+    </div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="{{ url_for ('dashboard') }}">MENU</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('dashboard') }}"><i class="bi bi-grid"></i>  DASHBOARD</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('ajout') }}"><i class="bi bi-plus-circle"></i>  AJOUTER ADMIN</a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('modpass') }}"><i class="bi bi-pencil"></i>  MODIFIER MOT DE PASSE</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('gestion') }}"><i class="bi bi-kanban"></i>  GESTION DES ADMINS</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('benevole') }}"><i class="bi bi-eye"></i>  LES BENEVOLES</a>
+                </li>
+
+                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}"><i class="bi bi-box-arrow-right"></i>  Se déconnecter</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,16 @@
+{% extends "html/base/backend.html" %}
+
+{% block content %}
+    <div class="conteneur">
+{#        Bienvenue {{ session['nom'] }}#}
+
+    <div class="welcome-container">
+    <div class="welcome-card">
+      <h1 class="display-4">Bienvenue, {{ session['nom'] }} !</h1>
+      <p class="lead">Nous sommes ravis de vous retrouver sur votre tableau de bord.</p>
+      <a href="{{ url_for('logout') }}" class="btn btn-outline-primary mt-3"><i class="bi bi-box-arrow-right"></i>  Se déconnecter</a>
+    </div>
+  </div>
+    </div>
+
+{% endblock %}

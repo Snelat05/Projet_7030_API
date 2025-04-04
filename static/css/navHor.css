@@ -1,0 +1,92 @@
+h1{
+    padding-top: 30px;
+    font-size: 25px;
+    text-align: center;
+    /*color: #FFFFFF;*/
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.collapse{
+    margin-left: 10%;
+}
+
+
+.navbar{
+    width: 100%;
+    background-color: #007bff;
+}
+
+.bi{
+    align-items: center;
+    gap: 30px;
+    color: #fff;
+}
+
+.navbar a
+{
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    color:#fff;
+
+}
+
+.navbar ul li:hover a{
+    padding: 5px 10px 5px 10px;
+    color: aliceblue;
+
+}
+
+.nav-item:hover{
+    border: 2px solid #f1dc4f;
+    background-color: RGBa(228, 77, 38, 0.15);
+}
+
+.dropdown-menu a{
+    border: 0;
+    background-color: transparent;
+    border-bottom: 1px solid #f1dc4f;
+    color:#fff;
+}
+
+.dropdown-menu a:hover {
+     padding: 0 0 0 0;
+    border: 1px solid #f1dc4f;
+    background-color: #ffab0f;
+    color:#fff;
+}
+
+.bgc {
+  background-color: #f8f9fa;
+}
+
+.forgot-password-container {
+  margin-top: 5%;
+}
+
+.instructions {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+body {
+  background-color: #f8f9fa;
+}
+
+.thank-you-container {
+  margin-top: 5%;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-header {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #0b5ed7;
+}
+
+

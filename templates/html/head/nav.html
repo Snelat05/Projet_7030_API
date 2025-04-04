@@ -1,0 +1,69 @@
+<div class="container-fluid">
+    <div class="row">
+        <img src="{{ url_for('static', filename='Images/ananda.png') }}" class="col-md-2 col-lg-2 col-xs-2 col-sm-2"
+             alt="...">
+
+        <h1 class=" col-md-8 col-lg-8 col-xs-8 col-sm-8"> ANANDA MARGA<br>
+            10, Impasse Dumond, Rue Gargnier, Bourdon, HAITI<br>
+            Rue Magua, Delmas 31<br>
+            Téléphone : +(509) 3167-7223<br>
+            E-mail: anandamarga@gmail.org<br>
+            BABA NAM KEVALAM
+        </h1>
+        <img src="{{ url_for('static', filename='Images/5.png') }}" class="col-md-2 col-lg-2 col-xs-2 col-sm-2"
+             alt="...">
+
+    </div>
+</div>
+
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="{{ url_for ('index') }}">MENU</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('index') }}"><i class="bi bi-sun"></i>  ACCEUIL</a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('ananda') }}"><i class="bi bi-peace"></i>  ANANDA MARGA</a>
+
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('ideologie') }}"><i class="bi bi-heart-fill"></i>  MISSION</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('evenements') }}"><i class="bi bi-calendar-event"></i>  EVENEMENTS</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('responsable') }}"><i class="bi bi-people-fill"></i>  RESPONSABLES</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="mailto:evensjacquet05@gmail.com">&#x1F4E7;  NOUS CONTACTER</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('formbenevol') }}">&#x1F468;&#x200D;&#x1F33E;  Devenir Bénévole</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for ('admin') }}"><i class="bi bi-key"></i>  Se connecter</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

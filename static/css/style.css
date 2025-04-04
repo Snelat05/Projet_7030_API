@@ -1,0 +1,151 @@
+html, body {
+    min-height: 100vh !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+      background-color: #f8f9fa;
+}
+.container-fluid {
+    flex: 1;
+}
+
+h6{
+      font-size: 15px;
+      text-align: center;
+      color: black;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      padding-top: 1%;
+      padding-bottom: 1%;
+ }
+
+.conteneur {
+    overflow: hidden;
+    border: 0 solid;
+    margin: 15px;
+}
+
+
+ h4{
+    color: black;
+    text-decoration: underline;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+  h5{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+  }
+
+  p{
+    font-family: 'Times New Roman', Times, serif;
+    text-align: justify;
+    font-size:15px;
+  }
+
+  .tableau {
+    overflow: hidden;
+    border: 0 solid;
+    margin: 15px;
+}
+
+.form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+textarea {
+    resize: none;
+    width: 100%;
+}
+.required {
+  color: red;
+  font-weight: bold;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.thank-you-box {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+}
+
+
+.thank-you-box h1 {
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+
+.thank-you-box p {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 600px) {
+  .thank-you-box h1 {
+    font-size: 2em;
+  }
+
+  .thank-you-box p {
+    font-size: 1em;
+  }
+}
+
+.btn1 {
+  background-color: #007BFF;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0;
+  font-family: 'Times New Roman', Times, serif;
+  width: 50%;
+  text-align: center;
+}
+
+.btn2 {
+  background-color: #ff0000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0;
+  font-family: 'Times New Roman', Times, serif;
+  width: 50%;
+  text-align: center;
+
+}
+
+
+.welcome-container {
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fa;
+    }
+    .welcome-card{
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      background: #ffffff;
+      text-align: center;
+    }
+
+.error{
+    background: #6c757d;
+    text-align: center;
+    color: #FFFFFF;
+}

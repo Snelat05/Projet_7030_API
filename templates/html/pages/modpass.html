@@ -1,0 +1,36 @@
+{% extends "html/base/backend.html" %}
+
+{% block content %}
+    <div class="conteneur">
+        <div class="form-container shadow-lg p-4 rounded">
+            <h2 class="text-center mb-4 text-primary">Modification password</h2>
+
+            <div class="error">
+                {% if erreur %}
+                    <span> {{ erreur }} </span>
+                {% endif %}
+
+            </div>
+            <form method="POST" action="{{ url_for('modpass') }}">
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Ancien mot de passe</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                           placeholder="Ancien mot de passe" required value="{{ password }}">
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Nouveau mot de passe</label>
+                    <input type="password" class="form-control" id="confirm_password" name="npassword"
+                           placeholder="Nouveau mot de passe" required value="{{ npassword }}">
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Confirmez le mot de passe</label>
+                    <input type="password" class="form-control" id="confirm_password" name="cpassword"
+                           placeholder="Confirmez le mot de passe" required value="{{ cpassword }}">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">MODIFIEZ</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

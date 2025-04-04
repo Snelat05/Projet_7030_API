@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Merci! </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navHor.css') }}">
+</head>
+
+<body>
+<div class="container thank-you-container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header text-center bg-primary text-white">
+                    <h3> Merci! </h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead text-center">
+                        Nous vous remercions pour votre demande. Si vous avez un compte avec ce mail, vous allez recevoir un e-mail de confirmation dans
+                        quelques instants.
+                    </p>
+                    <p class="text-center">
+                        Pensez à vérifier votre dossier de spam au cas où. &#x1F609;
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="/" class="btn btn-outline-primary">Retour à l'accueil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
