@@ -1,4 +1,5 @@
 import sqlite3
+from benevol import Benevol
 
 
 class Database:
@@ -15,24 +16,66 @@ class Database:
         if self.connection is not None:
             self.connection.close()
 
-    def save_benevol(self, nom, prenom, sexe, email, adresse, motivation):
+    def save_benevol(self, benevol):
         connection = self.get_connection()
         connection.execute(
             "INSERT INTO "
             "benevol(nom, prenom, sexe, email, adresse, motivation) "
             "VALUES (?, ?, ?, ?, ?, ?)",
-            (nom, prenom, sexe, email, adresse, motivation),
+            (benevol.nom, benevol.prenom, benevol.sexe, benevol.email, benevol.adresse, benevol.motivation),
         )
         connection.commit()
-        connection.close()
+        cursor = connection.cursor()
+        cursor.execute("select last_insert_rowid()")
+        benevol_id = cursor.fetchone()
+        benevol.id = benevol_id[0]
+        return benevol
 
     def get_benevols(self):
         cursor = self.get_connection().cursor()
         cursor.execute(
-            "SELECT nom,prenom,sexe,email,adresse, motivation FROM benevol"
+            "SELECT id, nom,prenom,sexe,email,adresse, motivation FROM benevol"
         )
-        rows = cursor.fetchall()
-        return rows
+        benevols = cursor.fetchall()
+        return [Benevol(benevol[0], benevol[1], benevol[2],
+                       benevol[3], benevol[4], benevol[5], benevol[6]) for benevol in benevols]
+
+    def get_benevol_byId(self, id):
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT id, nom, prenom, sexe, email, adresse, "
+                       "motivation from benevol where id = ?", (id,))
+        benevol = cursor.fetchone()
+        return Benevol(benevol[0], benevol[1], benevol[2], benevol[3],
+                           benevol[4], benevol[5], benevol[6])
+
+    def search_benevol(self, nom, prenom):
+        cursor = self.get_connection().cursor()
+        cursor.execute(
+            "SELECT id, nom, prenom, sexe, email, adresse, motivation FROM benevol WHERE nom = ? OR prenom = ?",
+            (nom, prenom,))
+        benevols = cursor.fetchall()
+        return [Benevol(benevol[0], benevol[1], benevol[2],
+                        benevol[3], benevol[4], benevol[5], benevol[6]) for benevol in benevols]
+
+    def update_benevol(self, benevol):
+        connection = self.get_connection()
+        connection.execute("UPDATE benevol set nom = ?, prenom = ?, sexe=?, email=?, adresse=?, "
+                           "motivation = ? where id = ?",
+                           (benevol.nom, benevol.prenom, benevol.sexe, benevol.email,
+                            benevol.adresse, benevol.motivation, benevol.id))
+        connection.commit()
+        cursor = connection.cursor()
+        cursor.execute("select last_insert_rowid()")
+        benevol_id = cursor.fetchone()
+        benevol.id = benevol_id[0]
+        return benevol
+
+    def delete_benevol(self, benevol):
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        cursor.execute("DELETE FROM benevol WHERE id = ?", (benevol.id,))
+        connection.commit()
+        connection.close()
 
     def get_benevol_info(self, email):
         cursor = self.get_connection().cursor()

@@ -1,0 +1,244 @@
+#%RAML 1.0
+encoding: utf-8
+title: API du projet final 7030
+mediaType: application/json
+
+types:
+  Benevol:
+    type: object
+    properties:
+      nom: {type: string}
+      required: true
+      prenom: {type: string}
+      required: true
+      sexe: {type: string}
+      required: true
+      email: {type: string}
+      required: true
+      adresse: {type: string}
+      required: true
+      motivation: {type: string}
+      required: true
+    additionalProperties: false
+    ExistingPerson:
+      {
+        "nom": "Jean",
+        "prenom": "Carl",
+        "sexe": "Masculin",
+        "email": "jeanlouis@gmail.com",
+        "adresse": "Montreal nord",
+        "motivation": "Je suis interessé"
+
+      }
+
+/api/ajout_benevol:
+  post:
+    description: Crée un nouveau bénévole
+    body:
+      application/json:
+        type: Benevol
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "L'utilisateur M'Baka Zooba a été ajouté avec succès.",
+
+                "adresse": "Canada",
+                "email": "mbakazooba10@gmail.com",
+                "id": 1,
+                "motivation": "Ca m'interesse",
+                "nom": "M'Baka",
+                "prenom": "Zooba",
+                "sexe": "Masculin"
+
+              }
+      400:champs_manquant:
+        description: Champ manquant, tous les champs doivent être rempli
+        body:
+          application/json:
+            example: |
+              {
+                "'email' is a required property"
+              }
+      400:mauvais type:
+        description: Champ du mauvais type
+        body:
+          application/json:
+            example: |
+              {
+                "12 is not of type 'string'"
+              }
+      500:
+        description: Une erreur interne s'est produite. L'erreur a été signalée à l'équipe de développement.
+        body:
+          application/json:
+            example: |
+              {
+                "error": "Une erreur interne s'est produite."
+              }
+
+/api/afficher_benevol:
+  get:
+    description: Récupère la liste de tous les bénévole.
+    responses:
+      200:
+        body:
+          application/json:
+            type: Liste bénévole
+            example: |
+              [
+                {
+                   "id": 1,
+                   "nom": "Jean",
+                   "prenom": "Carl",
+                   "sexe": "Masculin",
+                   "email": "jeanlouis@gmail.com",
+                   "adresse": "Montréal nord",
+                   "motivation": "Je suis interessé"
+                },
+                {
+                   "id": 1,
+                   "nom": "Jacques",
+                   "prenom": "Marie",
+                   "sexe": "Masculin",
+                   "email": "jacquesmarie@gmail.com",
+                   "adresse": "Montréal Ouest",
+                   "motivation": "Je suis interessée"
+                }
+              ]
+
+/api/afficher_benevol/{id}:
+  get:
+    description: Récupère un(e) bénévole spécifique en fonction de son identifiant.
+    responses:
+      200:
+        description: Données de la personne récupérées avec succès.
+        body:
+          application/json:
+            type: ExistingPerson
+            example: |
+
+                {
+                   "id": 1,
+                   "nom": "Jean",
+                   "prenom": "Carl",
+                   "sexe": "Masculin",
+                   "email": "jeanlouis@gmail.com",
+                   "adresse": "Montréal nord",
+                   "motivation": "Je suis interessé"
+                }
+      404:
+        description: Le bénévole spécifié n'existe pas.
+        body:
+          application/json:
+            example: |
+              {
+                "error": "Le bénévole avec l'Id : 1 n'existe pas."
+              }
+      400:mauvais type:
+        description: Champ du mauvais type.
+        body:
+          application/json:
+            example: |
+              {
+                "12 is not of type 'string'"
+              }
+      500:
+        description: Une erreur interne s'est produite
+        body:
+          application/json:
+            example: |
+              {
+                "error": "Une erreur interne s'est produite."
+              }
+
+
+/api/modifier_benevol/{id}:
+  uriParameters:
+    id:
+      description: L'identifiant unique du bénévole à modifier
+      type: integer
+  put:
+    description: Modifie un bénévole existant à partir de son Id. Tous les champs sont optionnels, et seul les champs fournis seront mis à jour.
+    body:
+      application/json:
+        type: object
+        description: Tous les champs sont optionnels pour permettre la mise à jour partielle.
+        properties:
+          nom: {type: string, required: false}
+          prenom: {type: string, required: false}
+          sexe: {type: string, required: false}
+          email: {type: string, required: false}
+          adresse: {type: string, required: false}
+          motivation: {type: string, required: false}
+        additionalProperties: false
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              {
+                "message": "Le bénévole avec l'id: 1 a été modifié avec succès."
+              }
+      404:
+        description: Le bénévole spécifié n'existe pas.
+        body:
+          application/json:
+            example: |
+              {
+                "error": "Le bénévole avec l'Id : 1 n'existe pas."
+              }
+      400:mauvais type:
+        description: Champ du mauvais type.
+        body:
+          application/json:
+            example: |
+              {
+                "12 is not of type 'string'"
+              }
+      500:
+        description: Une erreur interne s'est produite
+        body:
+          application/json:
+            example: |
+              {
+                "error": "Une erreur interne s'est produite."
+              }
+
+/api/supprimer_benevol/{id}:
+  uriParameters:
+    id:
+      description: L'identifiant unique du bénévole à supprimer
+      type: integer
+  delete:
+    description: Supprime un bénévole existant à partir de son ID.
+    responses:
+      200:
+        description: Le bénévole a été supprimé avec succès.
+        body:
+          application/json:
+            example: |
+              {
+                "message": "Le bénévole avec l'Id : 1 a été supprimé avec succès."
+              }
+      404:
+        description: Le bénévole spécifié n'existe pas.
+        body:
+          application/json:
+            example: |
+              {
+                "error": "Le bénévole avec l'Id : 1 n'existe pas."
+              }
+      500:
+        description: Une erreur interne s'est produite.
+        body:
+          application/json:
+            example: |
+              {
+                "error": "Une erreur interne s'est produite."
+              }
+/doc:
+  get:
+    description: Documentation de l'API

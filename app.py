@@ -1,7 +1,6 @@
 import smtplib
 from email.mime.text import MIMEText
 from functools import wraps
-
 from flask import (
     Flask,
     render_template,
@@ -9,16 +8,23 @@ from flask import (
     g,
     url_for,
     redirect,
-    session,
+    session, jsonify,
+)
+from flask_json_schema import JsonValidationError, JsonSchema
+from schema import (
+    inserer_benevol_schema,
+    modifier_benevol_schema,
 )
 from database import Database
+from benevol import Benevol
 import re
 import hashlib
 import uuid
 import secrets
 
 # Configuration de l'application
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="", static_folder="static")
+schema = JsonSchema(app)
 app.config["SECRET_KEY"] = secrets.token_hex(16)
 
 # Expressions régulières
@@ -111,11 +117,18 @@ def get_admin_by_token(token):
 def delete_admin(mail):
     return get_db().delete_admin(mail)
 
+@app.errorhandler(JsonValidationError)
+def validation_error(e):
+    errors = [validation_error.message for validation_error in e.errors]
+    return jsonify({"error": e.message, "errors": errors}), 400
 
 @app.errorhandler(404)
 def page_not_found():
     return render_template("html/pages/Error 404.html"), 404
 
+@app.route("/documentation")
+def documentation():
+    return render_template('document.html')
 
 @app.route("/")
 def index():
@@ -140,6 +153,96 @@ def evenements():
 @app.route("/responsable")
 def responsable():
     return render_template("html/pages/responsable.html")
+
+@app.route("/api/ajout_benevol", methods=["POST"])
+@schema.validate(inserer_benevol_schema)
+def benevol():
+    try:
+        data = request.get_json()
+        nouveau_benevol = Benevol(
+            None,
+            data["nom"],
+            data["prenom"],
+            data["sexe"],
+            data["email"],
+            data["adresse"],
+            data["motivation"]
+        )
+        new_bene = get_db().save_benevol(nouveau_benevol)
+
+        """
+        201 Created : Ce code est renvoyé lorsqu'une nouvelle ressource a été 
+        créée avec succès.
+        """
+        return jsonify("L'utilisateur "+ data["nom"]+ " "+ data["prenom"]
+            + " a été ajouté avec succès."
+        ,new_bene.asdictionary()), 201
+
+    except Exception as e:
+        return (
+            jsonify(
+                error="Une erreur interne s'est produite. L'erreur a été "
+                      "signalée à l'équipe de développement."
+            ),
+            500,
+        )
+
+@app.route('/api/afficher_benevol', methods=["GET"])
+def afficher_benevols():
+    benevols = get_db().get_benevols()
+    return jsonify([benevol.asdictionary() for benevol in benevols])
+
+@app.route('/api/afficher_benevol/<int:id>', methods=["GET"])
+def afficher_benevol(id):
+    benevol = get_db().get_benevol_byId(id)
+    if benevol is None:
+        return "", 404
+    else:
+        return jsonify(benevol.asdictionary())
+
+@app.route('/api/rechercher_benevols/<string:nom>/<string:prenom>', methods=["GET"])
+def rechercher_benevols(nom, prenom):
+    benevols = get_db().search_benevol(nom, prenom)
+    return jsonify([benevol.asdictionary() for benevol in benevols])
+
+@app.route('/api/modifier_benevol/<int:id>', methods=["PUT"])
+@schema.validate(modifier_benevol_schema)
+def update_benevol(id):
+    try:
+        data = request.get_json()
+        if data is None:
+            return jsonify({"error": "Requête invalide, aucun JSON trouvé."}), 400
+
+        benevol_update = Benevol(id,
+            data.get("nom"),
+            data.get("prenom"),
+            data.get("sexe"),
+            data.get("email"),
+            data.get("adresse"),
+            data.get("motivation"),)
+
+        result = get_db().update_benevol(benevol_update)
+
+        if result:
+         return jsonify({
+            "message": f"Le bénévole avec l'id: {id} a été modifié avec succès.",
+            "data": result.asdictionary()
+        }), 200
+
+        else:
+         return jsonify({"error": f"Bénévole non trouvé avec l'id spécifié: {id}."}), 404
+
+    except Exception as e:
+     return jsonify({"error": f"Une erreur interne s'est produite : {str(e)}"}), 500
+
+@app.route('/api/supprimer_benevol/<int:id>', methods=["DELETE"])
+def supprimer_benevol(id):
+    benevol = get_db().get_benevol_byId(id)
+    if benevol is None:
+        return jsonify({"error": f"Le bénévole avec l'Id {id} n'existe pas."}), 404
+
+    get_db().delete_benevol(benevol)
+    return jsonify({"message": f"Le bénévole avec l'Id {id} a été supprimé avec succès."}), 200
 
 
 @app.route("/Formulaire", methods=["GET", "POST"])
