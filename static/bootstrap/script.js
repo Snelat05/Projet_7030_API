@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('searchForm');
-    const volunteersRow = document.getElementById('volunteersRow');
+    const benevolRow = document.getElementById('benevolRow');
     const pagination = document.getElementById('pagination');
     const loading = document.getElementById('loading');
     let currentPage = 1;
@@ -10,26 +10,28 @@ document.addEventListener('DOMContentLoaded', function() {
     searchForm.addEventListener('submit', function(e) {
         e.preventDefault();
         currentPage = 1;
-        searchVolunteers();
+        searchbenevol();
     });
 
     // Fonction de recherche
-    function searchVolunteers() {
+    function searchbenevol() {
         const nom = document.getElementById('nom').value;
         const prenom = document.getElementById('prenom').value;
 
         loading.style.display = 'block';
-        volunteersRow.innerHTML = '';
+        benevolRow.innerHTML = '';
         pagination.innerHTML = '';
 
-        fetch('/api/volunteers/search?nom=${encodeURIComponent(nom)}&prenom=${encodeURIComponent(prenom)}&page=${currentPage}')
+        fetch(`/api/rechercher_benevols?nom=${encodeURIComponent(nom)}&prenom=${encodeURIComponent(prenom)}&page=${currentPage}`)
             .then(response => {
+                console.log(response);
                 if (!response.ok) {
                     throw new Error('Erreur réseau');
                 }
                 return response.json();
             })
             .then(data => {
+                console.log(data);
                 if (data.status === 'success') {
                     displayResults(data.data);
                     setupPagination(data.pagination);
@@ -38,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .catch(error => {
-                volunteersRow.innerHTML = `
+                console.log(error);
+                benevolRow.innerHTML = `
                     <div class="col-12">
                         <div class="alert alert-danger">${error.message}</div>
                     </div>
@@ -50,11 +53,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Affichage des résultats
-    function displayResults(volunteers) {
-        volunteersRow.innerHTML = '';
+    function displayResults(benevol) {
+        benevolRow.innerHTML = '';
 
-        if (volunteers.length === 0) {
-            volunteersRow.innerHTML = `
+        if (benevol.length === 0) {
+            benevolRow.innerHTML = `
                 <tr>
                     <td colspan="7">Aucun bénévole trouvé</td>
                 </tr>
@@ -62,20 +65,20 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        volunteers.forEach(volunteer => {
+        benevol.forEach(benevol => {
             const tr = document.createElement('tr');
             tr.innerHTML = `
 
-                    <td>${volunteer.nom}</td>
-                    <td>${volunteer.prenom}</td>
-                    <td>${volunteer.email}</td>
-                    <td>${volunteer.telephone}</td>
-                    <td>${volunteer.motivation}</td>
-                    <td>${volunteer.created_at}</td>
+                    <td>${benevol.nom}</td>
+                    <td>${benevol.prenom}</td>
+                    <td>${benevol.sexe}</td>
+                    <td>${benevol.email}</td>
+                    <td>${benevol.adresse}</td>
+                    <td>${benevol.motivation}</td>
                
                 
             `;
-            volunteersRow.appendChild(tr);
+            benevolRow.appendChild(tr);
         });
     }
 
@@ -107,11 +110,11 @@ document.addEventListener('DOMContentLoaded', function() {
         for (let i = 1; i <= totalPages; i++) {
             const pageItem = document.createElement('li');
             pageItem.className = `page-item ${i === currentPage ? 'active' : ''}`;
-            pageItem.innerHTML = <a class="page-link" href="#">${i}</a>;
+            pageItem.innerHTML = `<a class="page-link" href="#">${i}</a>`;
             pageItem.addEventListener('click', (e) => {
                 e.preventDefault();
                 currentPage = i;
-                searchVolunteers();
+                searchbenevol();
             });
             pagination.appendChild(pageItem);
         }
@@ -128,12 +131,12 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             if (currentPage < totalPages) {
                 currentPage++;
-                searchVolunteers();
+                searchbenevol();
             }
         });
         pagination.appendChild(nextItem);
     }
 
     // Recherche initiale au chargement
-    searchVolunteers();
+    searchbenevol();
 });

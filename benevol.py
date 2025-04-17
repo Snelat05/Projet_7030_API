@@ -1,7 +1,5 @@
 class Benevol:
-    def __init__(
-        self, id, nom, prenom, sexe, email, adresse, motivation
-    ):
+    def __init__(self, id, nom, prenom, sexe, email, adresse, motivation):
         self.id = id
         self.nom = nom
         self.prenom = prenom
@@ -11,13 +9,12 @@ class Benevol:
         self.motivation = motivation
 
     def asdictionary(self):
-        return \
-                {
-                # "id": self.id,
-                "nom": self.nom,
-                "prenom": self.prenom,
-                "sexe": self.sexe,
-                "email": self.email,
-                "adresse": self.adresse,
-                "motivation": self.motivation,
-                }
+        return {
+            "id": self.id,
+            "nom": self.nom,
+            "prenom": self.prenom,
+            "sexe": self.sexe,
+            "email": self.email,
+            "adresse": self.adresse,
+            "motivation": self.motivation,
+        }
