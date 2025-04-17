@@ -124,6 +124,33 @@ class Database:
 
         return volontaires
 
+    def get_total_volunteers_api(self, nom, prenom):
+        """Retourne le total des volontaires inscrits."""
+
+        connection = self.get_connection()
+        cursor = connection.cursor()
+
+        per_page = 5
+        # Requête pour le total
+        count_query = "SELECT COUNT(*) FROM benevol WHERE 1=1"
+        count_params = []
+
+        if nom:
+            count_query += " AND nom LIKE ?"
+            count_params.append(f"%{nom}%")
+
+        if prenom:
+            count_query += " AND prenom LIKE ?"
+            count_params.append(f"%{prenom}%")
+
+        cursor.execute(count_query, count_params)
+        rows = cursor.fetchone()
+        print(rows)
+
+        total_count = rows[0]
+        total_pages = (total_count + per_page - 1) // per_page
+        return total_pages, total_count
+
     def update_benevol(self, benevol):
         connection = self.get_connection()
         connection.execute(

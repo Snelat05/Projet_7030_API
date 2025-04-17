@@ -226,6 +226,8 @@ def rechercher_benevols():
     per_page = int(request.args.get("per_page", 5))
     try:
         benevol = get_db().search_benevol(nom, prenom, page, per_page)
+        total_pages, total_count = (
+            get_db().get_total_volunteers_api(nom, prenom))
         return (
             jsonify(
                 {
@@ -234,6 +236,11 @@ def rechercher_benevols():
                     "pagination": {
                         "current_page": page,
                         "per_page": per_page,
+                        "total_items": total_count,
+                        "total_pages": total_pages,
+                        "has_next": page < total_pages,
+                        "has_previous": page > 1
+
                     },
                 }
             ),
@@ -271,7 +278,8 @@ def update_benevol(id):
             return (
                 jsonify(
                     {
-                        "message": f"Le bénévole avec l'id: {id} a été modifié avec succès.",
+                        "message": f"Le bénévole avec l'id: {id} "
+                                   f"a été modifié avec succès.",
                         "data": result.asdictionary(),
                     }
                 ),
@@ -307,7 +315,8 @@ def supprimer_benevol(id):
     return (
         jsonify(
             {
-                "message": f"Le bénévole avec l'Id {id} a été supprimé avec succès."
+                "message": f"Le bénévole avec l'Id {id} "
+                           f"a été supprimé avec succès."
             }
         ),
         200,
@@ -721,6 +730,11 @@ def reset_final(token):
         )
 
         return redirect(url_for("admin")), 301
+
+
+@app.route("/api/doc")
+def doc():
+    return render_template("document.html")
 
 
 @app.route("/Logout")

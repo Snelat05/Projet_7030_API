@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('searchForm');
     const benevolRow = document.getElementById('benevolRow');
     const pagination = document.getElementById('pagination');
-    const loading = document.getElementById('loading');
+    // const loading = document.getElementById('loading');
     let currentPage = 1;
     let totalPages = 1;
 
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const nom = document.getElementById('nom').value;
         const prenom = document.getElementById('prenom').value;
 
-        loading.style.display = 'block';
+        // loading.style.display = 'block';
         benevolRow.innerHTML = '';
         pagination.innerHTML = '';
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             })
             .finally(() => {
-                loading.style.display = 'none';
+                // loading.style.display = 'none';
             });
     }
 
